@@ -1,69 +1,46 @@
-# MyPlaywright
-📘 Playwright Automation Testing – Tutorial Project
-📌 Description
+# Playwright Automation Testing – Tutorial Project
 
-This repository contains my Playwright automation testing practice based on an online tutorial.
-The purpose of this project is to learn and understand end-to-end (E2E) testing, API testing, and UI automation using Playwright with JavaScript.
+## 📌 Description
+This repository contains my **Playwright automation testing practice** based on an online tutorial.
 
-This is not a production project, but a learning playground to explore Playwright concepts and testing flows.
+The main goal of this project is to learn:
+- End-to-End (E2E) testing
+- API testing
+- UI automation
+using **Playwright with JavaScript**.
 
-🛠 Tech Stack
+> ⚠️ This is a learning project based on a tutorial, not a production-ready application.
 
-Playwright
+---
 
-JavaScript (Node.js)
+## 🛠 Tech Stack
+- Playwright
+- JavaScript (Node.js)
+- Playwright Test Runner
+- API & UI Automation
+- VS Code
 
-Playwright Test Runner
+---
 
-API + UI Integration Testing
 
-VS Code
+---
 
-📂 Project Structure (Example)
-├── tests/
-│   ├── e2e/
-│   ├── api/
-│   └── utils/
-├── playwright.config.js
-├── package.json
-└── README.md
+## 🔍 What I Learned
+- Playwright test lifecycle (`test`, `beforeAll`, `beforeEach`)
+- API testing using `request.newContext()`
+- Login and authentication via API
+- Reusing API token in UI tests (localStorage)
+- Utility class and constructor usage
+- Locator strategies and assertions
+- Full E2E flow (API → UI validation)
 
-🔍 What I Learned
+---
 
-Playwright test structure (test, beforeAll, beforeEach)
+## 🚀 How to Run the Tests
 
-API testing using request.newContext()
-
-Authentication via API and reusing token in UI tests
-
-Page Object / Utility class concept
-
-Handling locators and assertions
-
-End-to-End testing flow (API → UI)
-
-🚀 How to Run the Tests
-
-Install dependencies
-
+### 1️⃣ Install dependencies
+```bash
 npm install
-
-
-Run all tests
-
+## 📂 Project Structure
 npx playwright test
-
-
-Run tests with UI mode
-
 npx playwright test --ui
-
-🧪 Test Scenario Example
-
-Login using API
-
-Create order via API
-
-Save token in localStorage
-
-Open UI and validate created order
