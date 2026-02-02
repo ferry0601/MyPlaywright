@@ -23,7 +23,7 @@ test.beforeAll(async ({browser})=> {
     
 });
 
-test('E2E testing buy Item',async ({page})=>
+test('E2E API buy Item apaan',async ({page})=>
 {
     
     await page.locator(".card-body b").first().waitFor();
