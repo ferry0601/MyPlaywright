@@ -1,4 +1,5 @@
 const {test, expect} = require('@playwright/test');
+const { request } = require('node:http');
 const { title } = require('node:process');
 
 // test('First test case playwright with browser context', async ({browser})=>
@@ -60,6 +61,9 @@ test('Login valid', async({page})=>
 
 test('just basic',async ({page}) =>
 {
+    //await page.route("**/*.{jpg,jpeg,png}",route=> route.abort());
+    page.on('request',request=>console.log(request.url()));
+    page.on('response',response=>console.log(response.url(), response.status()));
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const userName = page.locator("#username");
     console.log(await userName.inputValue());
