@@ -1,47 +1,71 @@
 const {test, expect} = require('@playwright/test');
+const {customtest} = require('../utils/test-base');
 const {POManager} = require('../pageobjects/POManager');
+// JSON -> String -> JS Object
+const dataSet = JSON.parse(JSON.stringify(require('../utils/placeorder.json')));
 
 
-const username = "waferr@gmail.com";
-const password = "Iamking@000";
 
+for(const data of dataSet){
 
-test.beforeEach('test login',async ({page}) => {
-    const poManager = new POManager(page);
-    const messageSuccess = " Login Successfully ";
-    const loginPage = poManager.getLoginPage();
-    await loginPage.goTo();
-    await loginPage.validLogin(username,password);
-    await expect(loginPage.getLoginMessage()).toContainText(messageSuccess);
-    
-});
+    test(`E2E testing buy Item ${data.textToCart}`,async ({page})=>
+    {
 
-test('E2E testing buy Item',async ({page})=>
-{
-    const textToCart = "iphone 13 pro";
-    const countryCode = 'Ind';
-    const countryName = "Indonesia";
-    const poManager = new POManager(page);
-    const dashboardPage = poManager.getDashboardPage();
-    await dashboardPage.searchProductAddCart(textToCart);
-    await dashboardPage.navigateCart();
-    
-    const cartPage = poManager.getCartPage();
-    await cartPage.checkAddItem(textToCart);
-    await cartPage.btnToCheckout();
+        const poManager = new POManager(page);
+        const loginPage = poManager.getLoginPage();
+        await loginPage.goTo();
+        await loginPage.validLogin(data.username,data.password);
+        await expect(loginPage.getLoginMessage()).toContainText(data.messageSuccess);
 
-    const orderReview = poManager.getOrderReview();
-    await orderReview.chooseCountry(countryCode,countryName);
-    await orderReview.verifyEmailUserId(username);
-    const OrderId = await orderReview.submitAndGetOrderId();
-    console.log(OrderId);
+        const dashboardPage = poManager.getDashboardPage();
+        await dashboardPage.searchProductAddCart(data.textToCart);
+        await dashboardPage.navigateCart();
+        
+        const cartPage = poManager.getCartPage();
+        await cartPage.checkAddItem(data.textToCart);
+        await cartPage.btnToCheckout();
 
-    await dashboardPage.navigateOrders();
-    const reviewPage = poManager.getHistoryPage();
-    await reviewPage.SelectOrderId(OrderId);
-    
-    await reviewPage.getOrderId();
-    expect(OrderId.includes(await reviewPage.getOrderId())).toBeTruthy();
-});
+        const orderReview = poManager.getOrderReview();
+        await orderReview.chooseCountry(data.countryCode,data.countryName);
+        await orderReview.verifyEmailUserId(data.username);
+        const OrderId = await orderReview.submitAndGetOrderId();
+        console.log(OrderId);
 
+        await dashboardPage.navigateOrders();
+        const reviewPage = poManager.getHistoryPage();
+        await reviewPage.SelectOrderId(OrderId);
+        
+        await reviewPage.getOrderId();
+        expect(OrderId.includes(await reviewPage.getOrderId())).toBeTruthy();
+    });
+}
+    customtest.only(`E2E ClientAPP `,async ({page,testDataforOrder})=>
+    {
 
+        const poManager = new POManager(page);
+        const loginPage = poManager.getLoginPage();
+        await loginPage.goTo();
+        await loginPage.validLogin(testDataforOrder.username,testDataforOrder.password);
+        await expect(loginPage.getLoginMessage()).toContainText(testDataforOrder.messageSuccess);
+
+        const dashboardPage = poManager.getDashboardPage();
+        await dashboardPage.searchProductAddCart(testDataforOrder.textToCart);
+        await dashboardPage.navigateCart();
+        
+        const cartPage = poManager.getCartPage();
+        await cartPage.checkAddItem(testDataforOrder.textToCart);
+        await cartPage.btnToCheckout();
+
+        const orderReview = poManager.getOrderReview();
+        await orderReview.chooseCountry(testDataforOrder.countryCode,testDataforOrder.countryName);
+        await orderReview.verifyEmailUserId(testDataforOrder.username);
+        const OrderId = await orderReview.submitAndGetOrderId();
+        console.log(OrderId);
+
+        await dashboardPage.navigateOrders();
+        const reviewPage = poManager.getHistoryPage();
+        await reviewPage.SelectOrderId(OrderId);
+        
+        await reviewPage.getOrderId();
+        expect(OrderId.includes(await reviewPage.getOrderId())).toBeTruthy();
+    });
