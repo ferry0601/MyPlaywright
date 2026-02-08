@@ -14,6 +14,7 @@ import { chromium, defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  retries:1,
   timeout: 30*1000,
   expect:{
     timeout: 5000,
@@ -23,8 +24,13 @@ export default defineConfig({
     use: {
     browserName: 'chromium',
     headless: false,
-    screenshot:'on',
+    screenshot:'on', //only-on-failure
+    video:'retain-on-failure',
     trace: 'on',
+    ignoreHTTPSErrors:true,
+    permissions:['geolocation'],
+    // ...devices[''],
+    // viewport:{width:720,height:720}
   },
 
  

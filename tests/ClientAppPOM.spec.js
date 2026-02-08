@@ -39,7 +39,7 @@ for(const data of dataSet){
         expect(OrderId.includes(await reviewPage.getOrderId())).toBeTruthy();
     });
 }
-    customtest.only(`E2E ClientAPP `,async ({page,testDataforOrder})=>
+    customtest(`E2E ClientAPP `,async ({page,testDataforOrder})=>
     {
 
         const poManager = new POManager(page);
