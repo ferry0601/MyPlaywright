@@ -1,5 +1,5 @@
 const {test, expect, request} = require('@playwright/test');
-const {APiUtils} = require('./utils/APiUtils');
+const {APiUtils} = require('../utils/APiUtils');
 
 const payloadLogin = {userEmail: "waferr@gmail.com", userPassword: "Iamking@000"};
 const payloadOrder = {orders: [{country: "Singapore", productOrderedId: "6960ea76c941646b7a8b3dd5"}]};
@@ -27,7 +27,7 @@ test.beforeEach('test login',async ({page}) => {
     
 });
 
-test('API E2E testing buy Item',async ({page})=>
+test('@API E2E testing buy Item',async ({page})=>
 {
     await page.getByRole("button",{name:"ORDERS"}).click();
     await page.locator("tbody").first().waitFor();
