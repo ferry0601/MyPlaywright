@@ -46,6 +46,7 @@ test('Login valid', async({page})=>
     await passWord.fill("learning");
     await checkBox.check();
     await btnSignIn.click();
+    
 
     judule = page.locator("a.navbar-brand").first();
     const cardTitle = page.locator(".card-title a");
